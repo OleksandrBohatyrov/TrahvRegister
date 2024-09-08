@@ -25,17 +25,15 @@ namespace TrajvRegister10.Models
 
         public void CalculateSumma()
         {
-            int speedOver = Velocity;
-
-            if (speedOver <= 20)
+            if (Velocity <= 50)
             {
                 Sum = 50;
             }
-            else if (speedOver <= 40)
+            else if (Velocity > 50 && Velocity <= 70)
             {
                 Sum = 100;
             }
-            else if (speedOver <= 60)
+            else if (Velocity > 70 && Velocity <= 90)
             {
                 Sum = 200;
             }

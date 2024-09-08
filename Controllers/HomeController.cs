@@ -175,12 +175,13 @@ namespace Penalty.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Рассчитываем сумму штрафа на основе скорости
                 penalty.CalculateSumma();
 
                 var user = db.Users.FirstOrDefault(u => u.Email == penalty.UserEmail);
                 if (user != null)
                 {
-                    E_mail(penalty);
+                    E_mail(penalty); // Отправляем email
                 }
 
                 db.Penalty.Add(penalty);
@@ -191,6 +192,7 @@ namespace Penalty.Controllers
 
             return View(penalty);
         }
+
 
         // Метод для редактирования штрафа (Admin)
         [Authorize(Roles = "Admin")]
@@ -212,12 +214,16 @@ namespace Penalty.Controllers
         {
             if (ModelState.IsValid)
             {
+          
+                fine.CalculateSumma();
+
                 db.Entry(fine).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(fine);
         }
+
 
         // Метод для удаления штрафа (Admin)
         [Authorize(Roles = "Admin")]
