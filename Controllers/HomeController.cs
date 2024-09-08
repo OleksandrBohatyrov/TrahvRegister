@@ -4,9 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Drawing;
 using TrajvRegister10.Models;
 using System.Data.Entity;
 using PayPal.Api;
+using System.Text;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using System.IO;
 
 namespace Penalty.Controllers
 {
@@ -53,7 +58,66 @@ namespace Penalty.Controllers
             // Перенаправление обратно на страницу штрафов
             return RedirectToAction("Index");
         }
-        public ActionResult PaymentCancel()
+
+
+        public ActionResult ExportToExcel()
+        {
+            var fines = db.Penalty.ToList();
+
+            using (ExcelPackage package = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Fines");
+
+                // Заголовки столбцов
+                worksheet.Cells[1, 1].Value = "Id";
+                worksheet.Cells[1, 2].Value = "Car Number";
+                worksheet.Cells[1, 3].Value = "Sum";
+                worksheet.Cells[1, 4].Value = "Date";
+                worksheet.Cells[1, 5].Value = "Name";
+                worksheet.Cells[1, 6].Value = "User Email";
+                worksheet.Cells[1, 7].Value = "Velocity";
+                worksheet.Cells[1, 8].Value = "Is Paid";
+
+                // Стилизация заголовков
+                using (var range = worksheet.Cells[1, 1, 1, 8])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(Color.LightBlue);  // Задаем цвет фона
+                    range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    range.Style.Border.BorderAround(ExcelBorderStyle.Thin);  // Границы вокруг заголовков
+                }
+
+                // Добавление данных в таблицу
+                for (int i = 0; i < fines.Count; i++)
+                {
+                    var fine = fines[i];
+                    worksheet.Cells[i + 2, 1].Value = fine.Id;
+                    worksheet.Cells[i + 2, 2].Value = fine.CarNumber;
+                    worksheet.Cells[i + 2, 3].Value = fine.Sum;
+                    worksheet.Cells[i + 2, 4].Value = fine.Date.ToString("yyyy-MM-dd");
+                    worksheet.Cells[i + 2, 5].Value = fine.Name;
+                    worksheet.Cells[i + 2, 6].Value = fine.UserEmail;
+                    worksheet.Cells[i + 2, 7].Value = fine.Velocity;
+                    worksheet.Cells[i + 2, 8].Value = fine.IsPaid ? "Yes" : "No";
+
+                    // Добавление границ к каждой ячейке с данными
+                    for (int j = 1; j <= 8; j++)
+                    {
+                        worksheet.Cells[i + 2, j].Style.Border.BorderAround(ExcelBorderStyle.Thin);  // Границы
+                        worksheet.Cells[i + 2, j].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;  // Центрирование текста
+                    }
+                }
+
+                // Автоподбор ширины колонок
+                worksheet.Cells.AutoFitColumns();
+
+                // Генерация файла Excel
+                var stream = new MemoryStream(package.GetAsByteArray());
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Fines.xlsx");
+            }
+        }
+            public ActionResult PaymentCancel()
         {
             // Перенаправление на список штрафов при отмене платежа
             return RedirectToAction("Index");

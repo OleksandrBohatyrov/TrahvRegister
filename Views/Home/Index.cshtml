@@ -20,6 +20,11 @@
                     <input type="text" name="searchCarNumber" class="form-control" placeholder="Enter Car Number" value="@Request.QueryString["searchCarNumber"]" />
                 </div>
                 <button type="submit" class="btn btn-primary">Search</button>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a href="@Url.Action("ExportToExcel", "Home")" class="btn btn-info">Export to Excel</a>
+                    </div>
+                </div>
             </form>
             <table class="table">
                 <tr>
