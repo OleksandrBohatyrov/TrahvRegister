@@ -36,7 +36,7 @@ namespace TrajvRegister10.Models
         public DbSet<Fine> Penalty { get; set; }
     }
 
-    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

@@ -74,6 +74,57 @@ namespace Penalty.Controllers
             return View(penalty);
         }
 
+        // Метод для редактирования штрафа (Admin)
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var fine = db.Penalty.Find(id);
+            if (fine == null)
+            {
+                return HttpNotFound();
+            }
+            return View(fine);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Fine fine)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(fine).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(fine);
+        }
+
+        // Метод для удаления штрафа (Admin)
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var fine = db.Penalty.Find(id);
+            if (fine == null)
+            {
+                return HttpNotFound();
+            }
+            return View(fine);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var fine = db.Penalty.Find(id);
+            db.Penalty.Remove(fine);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // Отправка письма пользователю с информацией о штрафе
         public void E_mail(Fine penalty)
         {

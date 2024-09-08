@@ -24,49 +24,32 @@
             <table class="table">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.First().UserEmail)</th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().CarNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().Velocity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().Sum)
-                    </th>
-                    <th></th>
+                    <th>@Html.DisplayNameFor(model => model.First().CarNumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Date)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Velocity)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Sum)</th>
+                    <th>Actions</th> <!-- Добавляем колонку для кнопок -->
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CarNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Velocity)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sum)</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UserEmail)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CarNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Velocity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sum)
+                            @* Кнопка для редактирования штрафа *@
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+
+                            @* Кнопка для удаления штрафа *@
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this fine?');" })
                         </td>
                     </tr>
                 }
-
             </table>
         </div>
     </div>
