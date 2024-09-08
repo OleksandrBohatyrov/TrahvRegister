@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mail;
+using System.Net;
 
 namespace TrajvRegister10.Models
 {
@@ -41,6 +43,51 @@ namespace TrajvRegister10.Models
             {
                 Sum = 400;
             }
+        }
+
+        public void SendMessage()
+        {
+
+            try
+            {
+
+                var fromAddress = new MailAddress("smtp776@gmail.com", "Politsei");
+                var toAddress = new MailAddress(UserEmail, Name);
+                const string fromPassword = "qyyd usfw atbw omex";
+                string message1 = "Trahv infromatsion " + CarNumber;
+                string subject = message1;
+                string body = $"Tere, kell {Date} rikute kiirusepiirangut ({Velocity}), nii et te trahv {Sum}. Maksmiseks on teil 2 kuud";
+           
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com", // E.g., smtp.gmail.com for Gmail
+                    Port = 587, // 465 for SSL, 587 for TLS
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+
+                // Create the email message
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    // Send the email
+                    smtp.Send(message);
+                }
+
+                Console.WriteLine("Email sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to send email. Error: " + ex.Message);
+            }
+
+
         }
     }
 }

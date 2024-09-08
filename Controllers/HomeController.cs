@@ -181,7 +181,7 @@ namespace Penalty.Controllers
                 var user = db.Users.FirstOrDefault(u => u.Email == penalty.UserEmail);
                 if (user != null)
                 {
-                    E_mail(penalty); // Отправляем email
+                    penalty.SendMessage(); // Отправляем email
                 }
 
                 db.Penalty.Add(penalty);
@@ -250,30 +250,6 @@ namespace Penalty.Controllers
         }
 
         // Отправка письма пользователю с информацией о штрафе
-        public void E_mail(Fine penalty)
-        {
-            var user = db.Users.FirstOrDefault(u => u.Email == penalty.UserEmail);
-            if (user != null)
-            {
-                try
-                {
-                    WebMail.SmtpServer = "smtp.gmail.com";
-                    WebMail.SmtpPort = 587;
-                    WebMail.EnableSsl = true;
-                    WebMail.UserName = "nepridumalnazvaniepocht@gmail.com";
-                    WebMail.Password = "rnlt mfvn ftjb usxu";
-                    WebMail.From = "nepridumalnazvaniepocht@gmail.com";
-
-                    WebMail.Send(user.Email,
-                                 "Teil on uus Trahv!",
-                                 $"Tere {penalty.Name},\n\nAuto number: {penalty.CarNumber}\nTrahvi summa: {penalty.Sum} Є\nKuupäev: {penalty.Date:yyyy.MM.dd}");
-                    ViewBag.Message = "Kiri on saatnud!";
-                }
-                catch
-                {
-                    ViewBag.Message = "Mul on kahju! Ei saa kirja saada!!!";
-                }
-            }
-        }
+       
     }
 }
