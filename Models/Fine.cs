@@ -15,6 +15,9 @@ namespace TrajvRegister10.Models
         public DateTime Date { get; set; }
         public string Name { get; set; }
 
+
+  
+
         [Required]
         public string UserEmail { get; set; }  // Email пользователя
 

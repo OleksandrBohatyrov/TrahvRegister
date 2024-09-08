@@ -13,37 +13,36 @@ namespace Penalty.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        // Отображение всех штрафов (например, для админа)
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string searchCarNumber = null)
         {
             var penalties = db.Penalty.AsQueryable();
 
-            // Если был введен номер машины для поиска
             if (!string.IsNullOrEmpty(searchCarNumber))
             {
                 penalties = penalties.Where(p => p.CarNumber.Contains(searchCarNumber));
             }
 
-            // Незарегистрированные пользователи видят все штрафы
             return View(penalties.ToList());
         }
 
+        // Отображение штрафов для текущего пользователя
         [Authorize]
         public ActionResult Fines(string searchCarNumber = null)
         {
-            var penalties = db.Penalty.AsQueryable();
-            var currentUserEmail = User.Identity.GetUserName();  // Получаем email текущего пользователя
+            var currentUserEmail = User.Identity.GetUserName();
+            var penalties = db.Penalty.Where(p => p.UserEmail == currentUserEmail);
 
             if (!string.IsNullOrEmpty(searchCarNumber))
             {
                 penalties = penalties.Where(p => p.CarNumber.Contains(searchCarNumber));
             }
 
-            // Пользователь видит только свои штрафы
-            penalties = penalties.Where(p => p.UserEmail == currentUserEmail);
-
             return View(penalties.ToList());
         }
 
+        // Создание штрафа (только для администратора)
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
@@ -60,11 +59,9 @@ namespace Penalty.Controllers
             {
                 penalty.CalculateSumma();
 
-                // Проверяем, существует ли пользователь с указанным email
                 var user = db.Users.FirstOrDefault(u => u.Email == penalty.UserEmail);
                 if (user != null)
                 {
-                    // Если пользователь найден, отправляем ему email
                     E_mail(penalty);
                 }
 
@@ -77,6 +74,7 @@ namespace Penalty.Controllers
             return View(penalty);
         }
 
+        // Отправка письма пользователю с информацией о штрафе
         public void E_mail(Fine penalty)
         {
             var user = db.Users.FirstOrDefault(u => u.Email == penalty.UserEmail);
@@ -90,8 +88,10 @@ namespace Penalty.Controllers
                     WebMail.UserName = "nepridumalnazvaniepocht@gmail.com";
                     WebMail.Password = "rnlt mfvn ftjb usxu";
                     WebMail.From = "nepridumalnazvaniepocht@gmail.com";
-                    WebMail.Send(user.Email, "Teil on uus Trahv!", "Tere " + penalty.Name + " Auto number: " + penalty.CarNumber + " Trahv maksa: "
-                        + penalty.Sum + "Є" + " Trahvi kuupäev: " + penalty.Date.ToString("yyyy.MM.dd"));
+
+                    WebMail.Send(user.Email,
+                                 "Teil on uus Trahv!",
+                                 $"Tere {penalty.Name},\n\nAuto number: {penalty.CarNumber}\nTrahvi summa: {penalty.Sum} Є\nKuupäev: {penalty.Date:yyyy.MM.dd}");
                     ViewBag.Message = "Kiri on saatnud!";
                 }
                 catch
