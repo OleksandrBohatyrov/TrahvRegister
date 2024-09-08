@@ -36,7 +36,7 @@
         <div class="col-md-12">
             @if (Model.Any())
             {
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>@Html.DisplayNameFor(model => model.First().UserEmail)</th>
@@ -45,19 +45,43 @@
                             <th>@Html.DisplayNameFor(model => model.First().Date)</th>
                             <th>@Html.DisplayNameFor(model => model.First().Velocity)</th>
                             <th>@Html.DisplayNameFor(model => model.First().Sum)</th>
-                            <th></th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td> <!-- Исправлено для отображения UserEmail -->
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
                                 <td>@Html.DisplayFor(modelItem => item.CarNumber)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Name)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Date)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Velocity)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Sum)</td>
+                                <td>
+                                    @* If user is admin, show Edit and Delete buttons *@
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a href="@Url.Action("Edit", "Home", new { id = item.Id })" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="@Url.Action("Delete", "Home", new { id = item.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this fine?');">Delete</a>
+                                    }
+                                    else
+                                    {
+                                        @* Payment button for users *@
+                                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                    <input type="hidden" name="cmd" value="_xclick">
+                                    <input type="hidden" name="business" value="oleksandr.bohatyrov@gmail.com"> <!-- Ваш Sandbox PayPal Email -->
+                                    <input type="hidden" name="item_name" value="Fine Payment - @item.CarNumber">
+                                    <input type="hidden" name="amount" value="@item.Sum.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)"> <!-- Правильное форматирование суммы -->
+
+                                    <input type="hidden" name="currency_code" value="EUR">
+                                    <input type="hidden" name="return" value="@Url.Action("PaymentSuccess", "Home", new { carNumber = item.CarNumber }, Request.Url.Scheme)">
+                                    <input type="hidden" name="cancel_return" value="@Url.Action("PaymentCancel", "Home", null, Request.Url.Scheme)">
+                                    <button type="submit" class="btn btn-primary btn-sm">Pay with PayPal</button>
+                                </form>
+
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>

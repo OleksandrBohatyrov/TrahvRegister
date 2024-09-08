@@ -6,12 +6,66 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using TrajvRegister10.Models;
 using System.Data.Entity;
+using PayPal.Api;
 
 namespace Penalty.Controllers
 {
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult PayWithPayPal(int id)
+        {
+            var fine = db.Penalty.Find(id);
+            if (fine == null)
+            {
+                return HttpNotFound();
+            }
+
+            var payPalService = new PayPalService();
+
+            // Генерация ссылки для оплаты
+            var returnUrl = Url.Action("PaymentSuccess", "Home", new { id = fine.Id }, Request.Url.Scheme);
+            var cancelUrl = Url.Action("PaymentCancel", "Home", new { id = fine.Id }, Request.Url.Scheme);
+            var payment = payPalService.CreatePayment(fine.Sum, returnUrl, cancelUrl);
+
+            // Перенаправляем пользователя на PayPal для оплаты
+            var approvalUrl = payment.links.FirstOrDefault(link => link.rel == "approval_url").href;
+            return Redirect(approvalUrl);
+        }
+
+        // Метод, обрабатывающий успешную оплату
+        public ActionResult PaymentSuccess(string carNumber)
+        {
+            // Поиск штрафа по номеру машины (или по ID, если хотите более точный поиск)
+            var fine = db.Penalty.FirstOrDefault(f => f.CarNumber == carNumber);
+
+            if (fine != null)
+            {
+                // Удаление штрафа
+                db.Penalty.Remove(fine);
+                db.SaveChanges();
+            }
+
+            // Перенаправление обратно на страницу штрафов
+            return RedirectToAction("Index");
+        }
+        public ActionResult PaymentCancel()
+        {
+            // Перенаправление на список штрафов при отмене платежа
+            return RedirectToAction("Index");
+        }
+
+        // Метод, обрабатывающий отмену платежа
+        public ActionResult PaymentCancel(int id)
+        {
+            // Логика обработки отмены платежа
+            ViewBag.Message = "Оплата была отменена.";
+            return RedirectToAction("Fines");
+        }
 
         // Отображение всех штрафов (например, для админа)
         [Authorize(Roles = "Admin")]
