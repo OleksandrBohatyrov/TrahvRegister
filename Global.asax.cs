@@ -33,7 +33,7 @@ namespace TrajvRegister10
             }
             else
             {
-                // Устанавливаем язык по умолчанию
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 var cultureInfo = new System.Globalization.CultureInfo("en");
                 System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
