@@ -29,10 +29,8 @@ h4 {
     background: none; /* Убирает любые фоны у контейнера */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Только тень без фона */
     border-radius: 10px;
-
+    min-height: 100vh;
     padding: 20px;
-
-
 }
 
 .container2 {
@@ -49,7 +47,7 @@ h4 {
 
 /* Стили для изображений */
 .img-responsive {
-   
+    margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
