@@ -1,24 +1,22 @@
 ﻿body {
     position: relative;
-    background-image: url('/pictures/background.jpg');
+    background-image: url('/pictures/background2.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный слой */
-    z-index: -1;
-}
-
-
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный слой */
+        z-index: -1;
+    }
 
 h4 {
     font-size: 24px;
@@ -28,12 +26,19 @@ h4 {
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый цвет */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: none; /* Убирает любые фоны у контейнера */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Только тень без фона */
     border-radius: 10px;
     padding: 20px;
 }
 
+.container2 {
+    background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый цвет */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(10px); /* Размытие фона контейнера */
+}
 
 .row {
     margin-bottom: 20px;
@@ -47,11 +52,12 @@ h4 {
 }
 
 /* Стили для форм */
-.form-horizontal {
-    padding: 20px;
-    background-color: #fff;
+
+-horizontal {
+    background: none; /* Убирает любые фоны у контейнера */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Только тень без фона */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .form-group {
@@ -61,7 +67,7 @@ h4 {
 label {
     font-size: 16px;
     font-weight: 600;
-    color: #003366;
+    color: #005ab0;
 }
 
 input[type="text"], input[type="email"], input[type="date"], input[type="number"] {
@@ -129,17 +135,19 @@ table {
 
     table th {
         background-color: #f2f2f2;
-        color: #003366;
+        color: #005ab0;
         font-weight: bold;
     }
 
     table tr:hover {
-        background-color: #f9f9f9;
+        background-color: #001933;
+        transition: background-color 0.2s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     table td {
         font-size: 14px;
-        color: #333;
+        color: #858181;
     }
 
 /* Стили для навигационного меню */

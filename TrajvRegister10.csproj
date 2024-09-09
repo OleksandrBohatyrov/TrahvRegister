@@ -246,6 +246,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="pictures\background.jpg" />
+    <Content Include="pictures\background2.jpg" />
     <Content Include="pictures\flag-et.gif" />
     <Content Include="pictures\kat.jpg" />
     <Content Include="pictures\uk-flag.jpg" />
