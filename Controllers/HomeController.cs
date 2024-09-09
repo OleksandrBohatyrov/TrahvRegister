@@ -33,32 +33,39 @@ namespace Penalty.Controllers
 
             var payPalService = new PayPalService();
 
-            // Генерация ссылки для оплаты
+            // Генерация ссылки для успешной оплаты с передачей id
             var returnUrl = Url.Action("PaymentSuccess", "Home", new { id = fine.Id }, Request.Url.Scheme);
             var cancelUrl = Url.Action("PaymentCancel", "Home", new { id = fine.Id }, Request.Url.Scheme);
+
             var payment = payPalService.CreatePayment(fine.Sum, returnUrl, cancelUrl);
 
-            // Перенаправляем пользователя на PayPal для оплаты
             var approvalUrl = payment.links.FirstOrDefault(link => link.rel == "approval_url").href;
             return Redirect(approvalUrl);
         }
 
-        // Метод, обрабатывающий успешную оплату
-        public ActionResult PaymentSuccess(string carNumber)
-        {
-            // Поиск штрафа по номеру машины (или по ID, если хотите более точный поиск)
-            var fine = db.Penalty.FirstOrDefault(f => f.CarNumber == carNumber);
 
-            if (fine != null)
+        // Метод, обрабатывающий успешную оплату
+        public ActionResult PaymentSuccess(int? id)
+        {
+            if (id == null)
             {
-                // Удаление штрафа
-                db.Penalty.Remove(fine);
-                db.SaveChanges();
+                // Логирование или обработка ошибки, если параметр отсутствует
+                Console.WriteLine("ID штрафа не был передан.");
+                return RedirectToAction("Index");
             }
 
-            // Перенаправление обратно на страницу штрафов
+            var fine = db.Penalty.FirstOrDefault(f => f.Id == id);
+            if (fine != null)
+            {
+                db.Penalty.Remove(fine);
+                db.SaveChanges();
+                Console.WriteLine($"Штраф с ID {id} был успешно оплачен и удалён.");
+            }
+
             return RedirectToAction("Index");
         }
+
+
 
 
         public ActionResult ExportToExcel()
