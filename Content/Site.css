@@ -18,3 +18,17 @@ select,
 textarea {
     max-width: 280px;
 }
+/* Кастомные стили для навигационной панели */
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.navbar-toggler {
+    border-color: #fff;
+}

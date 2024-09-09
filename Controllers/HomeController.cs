@@ -12,6 +12,7 @@ using System.Text;
 using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.IO;
+using System.Net.Mail;
 
 namespace Penalty.Controllers
 {
@@ -181,7 +182,9 @@ namespace Penalty.Controllers
                 var user = db.Users.FirstOrDefault(u => u.Email == penalty.UserEmail);
                 if (user != null)
                 {
-                    penalty.SendMessage(); // Отправляем email
+                    // Отправляем email прямо из контроллера
+                    SendEmail(penalty.UserEmail, "Ваш штраф",
+                              $"Tere, kell {penalty.Date} rikute kiirusepiirangut ({penalty.Velocity}), nii et te trahv {penalty.Sum}. Maksmiseks on teil 2 kuud");
                 }
 
                 db.Penalty.Add(penalty);
@@ -192,6 +195,37 @@ namespace Penalty.Controllers
 
             return View(penalty);
         }
+
+        // Вспомогательный метод для отправки email
+        private void SendEmail(string toEmail, string subject, string body)
+        {
+            try
+            {
+                WebMail.SmtpServer = "smtp.gmail.com";
+                WebMail.SmtpPort = 587; // Порт для TLS
+                WebMail.EnableSsl = true;
+                WebMail.UserName = "pinkod2222@gmail.com";  // Ваш email
+                WebMail.Password = "mxnz nsgd kdia ijcp";      // Пароль приложения
+                WebMail.From = "pinkod2222@gmail.com";      // Отправитель
+
+                // Отправляем email
+                WebMail.Send(toEmail, subject, body);
+
+                Console.WriteLine("Письмо успешно отправлено!");
+            }
+            catch (SmtpException smtpEx)
+            {
+                // SMTP ошибки
+                Console.WriteLine($"Ошибка SMTP: {smtpEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                // Любые другие ошибки
+                Console.WriteLine($"Ошибка при отправке письма: {ex.Message}");
+            }
+        }
+
+
 
 
         // Метод для редактирования штрафа (Admin)

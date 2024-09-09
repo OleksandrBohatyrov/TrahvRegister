@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Mvc;
 
 namespace TrajvRegister10.Models
 {
@@ -45,49 +46,34 @@ namespace TrajvRegister10.Models
             }
         }
 
-        public void SendMessage()
-        {
+        //public void SendMessage()
+        //{
+        //    try
+        //    {
+        //        // Настройки для WebMail
+        //        System.Web.Helpers.WebMail.SmtpServer = "smtp.gmail.com";
+        //        System.Web.Helpers.WebMail.SmtpPort = 587;  // Порт для TLS
+        //        System.Web.Helpers.WebMail.EnableSsl = true;
+        //        System.Web.Helpers.WebMail.UserName = "nepridumalnazvaniepocht@gmail.com";  // Ваш email
+        //        System.Web.Helpers.WebMail.Password = "rnlt mfvn ftjb usxu";  // Пароль приложения
+        //        System.Web.Helpers.WebMail.From = "nepridumalnazvaniepocht@gmail.com";  // Отправитель
 
-            try
-            {
+        //        // Определение переменных для отправки письма
+        //        string message1 = "Trahv infromatsion " + CarNumber;
+        //        string subject = message1;
+        //        string body = $"Tere {Name}, Auto number: {CarNumber}. Rikute kiirusepiirangut ({Velocity}), nii et te trahv {Sum}€. " +
+        //                      $"Trahvi kuupäev: {Date.Year}.{Date.Month}.{Date.Day}. Maksmiseks on teil 2 kuud.";
 
-                var fromAddress = new MailAddress("smtp776@gmail.com", "Politsei");
-                var toAddress = new MailAddress(UserEmail, Name);
-                const string fromPassword = "qyyd usfw atbw omex";
-                string message1 = "Trahv infromatsion " + CarNumber;
-                string subject = message1;
-                string body = $"Tere, kell {Date} rikute kiirusepiirangut ({Velocity}), nii et te trahv {Sum}. Maksmiseks on teil 2 kuud";
-           
+        //        // Отправка письма с использованием WebMail
+        //        System.Web.Helpers.WebMail.Send(UserEmail, subject, body);
 
-                var smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com", // E.g., smtp.gmail.com for Gmail
-                    Port = 587, // 465 for SSL, 587 for TLS
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-                };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Обработка ошибок
+        //        Console.WriteLine("Failed to send email. Error: " + ex.Message);
+        //    }
+        //}
 
-                // Create the email message
-                using (var message = new MailMessage(fromAddress, toAddress)
-                {
-                    Subject = subject,
-                    Body = body
-                })
-                {
-                    // Send the email
-                    smtp.Send(message);
-                }
-
-                Console.WriteLine("Email sent successfully!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed to send email. Error: " + ex.Message);
-            }
-
-
-        }
     }
 }

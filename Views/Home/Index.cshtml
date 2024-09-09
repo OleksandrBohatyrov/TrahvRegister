@@ -4,9 +4,13 @@
     ViewBag.Title = "Home Page";
 }
 
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/wwwroot/css/main.css")" />
+<body>
+
+</body>
 <div class="row">
     <div class="col-md-12">
-        <img src="~/content/pic.jpg" alt="Header Image" class="img-responsive" style="width: 100%; height: auto;">
+        <img src="~/pictures/kat.jpg" alt="Header Image" class="img-responsive" style="width: 10%; height: auto;">
     </div>
 </div>
 
@@ -22,7 +26,7 @@
                 <button type="submit" class="btn btn-primary">Search</button>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <a href="@Url.Action("ExportToExcel", "Home")" class="btn btn-info">Export to Excel</a>
+                        <a href="@Url.Action("ExportToExcel", "Home")" class="btn btn-info" style="margin-top: 5px;">Export to Excel</a>
                     </div>
                 </div>
             </form>
