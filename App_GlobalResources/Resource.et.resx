@@ -129,8 +129,14 @@
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Kas olete kindel, et soovite selle trahvi kustutada?</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Kinnita parool</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Loo</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Loo uus konto.</value>
   </data>
   <data name="CreateFine" xml:space="preserve">
     <value>Loo trahv</value>
@@ -159,6 +165,9 @@
   <data name="EditSuccessMessage" xml:space="preserve">
     <value>Trahv on edukalt uuendatud.</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
   <data name="ExportToExcel" xml:space="preserve">
     <value>Ekspordi Excelisse</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="Fines" xml:space="preserve">
     <value>Otsi trahve</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Kas unustasid oma parooli?</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Avaleht</value>
@@ -192,8 +204,20 @@
   <data name="NoFinesFound" xml:space="preserve">
     <value>Trahve ei leitud.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parool</value>
+  </data>
   <data name="PayFine" xml:space="preserve">
     <value>Maksa trahv</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registreeru</value>
+  </data>
+  <data name="RegisterNew" xml:space="preserve">
+    <value>Registreeri uue kasutajana</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Jäta mind meelde</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Salvesta</value>
@@ -206,6 +230,15 @@
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Summa</value>
+  </data>
+  <data name="TitleLogin" xml:space="preserve">
+    <value>Logi sisse</value>
+  </data>
+  <data name="TitleRegister" xml:space="preserve">
+    <value>Registreeru</value>
+  </data>
+  <data name="UseLocalAccount" xml:space="preserve">
+    <value>Kasuta sisselogimiseks kohalikku kontot.</value>
   </data>
   <data name="UserEmail" xml:space="preserve">
     <value>Kasutaja email</value>
