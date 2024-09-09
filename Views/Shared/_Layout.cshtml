@@ -6,26 +6,45 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Логотип -->
+            <a class="navbar-brand" href="#">Trahviregister</a>
+
+            <!-- Бургер-кнопка -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Fine", "Fines", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-              
+
+            <!-- Основное меню навигации -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Find", "Fines", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+
+                    <!-- Дополнительные пункты меню для админа -->
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Create Fine", "Create", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
                 </ul>
-                 @Html.Partial("_LoginPartial")
+
+                <!-- Логин/выход -->
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
+
+    <!-- Контент страницы -->
     <div class="container body-content">
         @RenderBody()
         <hr />
