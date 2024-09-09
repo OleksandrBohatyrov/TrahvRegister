@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TrajvRegister10.Models.Fine>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = Resources.Resource.FineOverview;
 }
 
 <link type="text/css" rel="stylesheet" href="@Url.Content("~/wwwroot/css/main.css")" />
@@ -13,25 +13,22 @@
 </div>
 
 <div class="container">
-    <!-- Search Form and Create Button -->
     <div class="row">
         <div class="col-md-8">
             <form method="get" action="@Url.Action("Index", "Home")">
                 <div class="form-group">
-                    <label for="searchCarNumber">Search by Car Number:</label>
-                    <input type="text" name="searchCarNumber" class="form-control" placeholder="Enter Car Number" value="@Request.QueryString["searchCarNumber"]" />
+                    <label for="searchCarNumber">@Resources.Resource.SearchCarNumber</label>
+                    <input type="text" name="searchCarNumber" class="form-control" placeholder="@Resources.Resource.SearchCarNumber" value="@Request.QueryString["searchCarNumber"]" />
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary">@Resources.Resource.Search</button>
             </form>
         </div>
 
         @if (User.IsInRole("Admin"))
         {
             <div class="col-md-4 text-right">
-                <a href="@Url.Action("Create", "Home")" class="btn btn-success" style="margin-top: 25px;">Add New Fine</a>
+                <a href="@Url.Action("Create", "Home")" class="btn btn-success" style="margin-top: 25px;">@Resources.Resource.CreateFine</a>
             </div>
-
-
         }
     </div>
 
@@ -49,7 +46,7 @@
                             <th>@Html.DisplayNameFor(model => model.First().Date)</th>
                             <th>@Html.DisplayNameFor(model => model.First().Velocity)</th>
                             <th>@Html.DisplayNameFor(model => model.First().Sum)</th>
-                            <th>Actions</th>
+                            <th>@Resources.Resource.Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,27 +60,23 @@
                                 <td>@Html.DisplayFor(modelItem => item.Velocity)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Sum)</td>
                                 <td>
-                                    @* If user is admin, show Edit and Delete buttons *@
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <a href="@Url.Action("Edit", "Home", new { id = item.Id })" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="@Url.Action("Delete", "Home", new { id = item.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this fine?');">Delete</a>
+                                        @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                                        @Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('@Resources.Resource.ConfirmDelete');" })
                                     }
                                     else
                                     {
-                                        @* Payment button for users *@
-                                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                                        <input type="hidden" name="cmd" value="_xclick">
-                                        <input type="hidden" name="business" value="oleksandr.bohatyrov@gmail.com"> <!-- Ваш Sandbox PayPal Email -->
-                                        <input type="hidden" name="item_name" value="Fine Payment - @item.CarNumber">
-                                        <input type="hidden" name="amount" value="@item.Sum.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)"> <!-- Правильное форматирование суммы -->
-
-                                        <input type="hidden" name="currency_code" value="EUR">
-                                        <!-- Используем id вместо carNumber -->
-                                        <input type="hidden" name="return" value="@Url.Action("PaymentSuccess", "Home", new { id = item.Id }, Request.Url.Scheme)">
-                                        <input type="hidden" name="cancel_return" value="@Url.Action("PaymentCancel", "Home", new { id = item.Id }, Request.Url.Scheme)">
-                                        <button type="submit" class="btn btn-primary btn-sm">Pay with PayPal</button>
-                                    </form>
+                                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                            <input type="hidden" name="cmd" value="_xclick">
+                                            <input type="hidden" name="business" value="your-paypal-business@example.com">
+                                            <input type="hidden" name="item_name" value="Fine Payment - @item.CarNumber">
+                                            <input type="hidden" name="amount" value="@item.Sum.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)">
+                                            <input type="hidden" name="currency_code" value="EUR">
+                                            <input type="hidden" name="return" value="@Url.Action("PaymentSuccess", "Home", new { id = item.Id }, Request.Url.Scheme)">
+                                            <input type="hidden" name="cancel_return" value="@Url.Action("PaymentCancel", "Home", new { id = item.Id }, Request.Url.Scheme)">
+                                            <button type="submit" class="btn btn-primary btn-sm">@Resources.Resource.PayFine</button>
+                                        </form>
                                     }
                                 </td>
                             </tr>
@@ -93,7 +86,7 @@
             }
             else
             {
-                <p>No fines found.</p> <!-- Message if no fines -->
+                <p>@Resources.Resource.NoFinesFound</p>
             }
         </div>
     </div>

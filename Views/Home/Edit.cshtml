@@ -1,18 +1,17 @@
 ﻿@model TrajvRegister10.Models.Fine
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Resources.Resource.EditFine;
 }
 
 <link type="text/css" rel="stylesheet" href="@Url.Content("~/wwwroot/css/main.css")" />
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Fine</h4>
+        <h4>@Resources.Resource.FineInformation</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -41,7 +40,6 @@
             </div>
         </div>
 
-
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -49,7 +47,6 @@
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.Velocity, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,12 +66,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="@Resources.Resource.Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(Resources.Resource.BackToList, "Index")
 </div>

@@ -1,74 +1,41 @@
 ﻿@model TrajvRegister10.Models.Fine
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = Resources.Resource.DeleteFine;
 }
 
 <link type="text/css" rel="stylesheet" href="@Url.Content("~/wwwroot/css/main.css")" />
 
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>@Resources.Resource.ConfirmDelete</h3>
 <div>
-    <h4>Fine</h4>
+    <h4>@Resources.Resource.FineInformation</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CarNumber)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.CarNumber)</dt>
+        <dd>@Html.DisplayFor(model => model.CarNumber)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CarNumber)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.UserEmail)</dt>
+        <dd>@Html.DisplayFor(model => model.UserEmail)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Date)</dt>
+        <dd>@Html.DisplayFor(model => model.Date)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserEmail)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.Velocity)</dt>
+        <dd>@Html.DisplayFor(model => model.Velocity)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Velocity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Velocity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sum)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sum)
-        </dd>
-
+        <dt>@Html.DisplayNameFor(model => model.Sum)</dt>
+        <dd>@Html.DisplayFor(model => model.Sum)</dd>
     </dl>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" /> |
+            @Html.ActionLink(Resources.Resource.BackToList, "Index")
         </div>
     }
 </div>
