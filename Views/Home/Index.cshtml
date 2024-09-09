@@ -1,13 +1,11 @@
 ﻿@model IEnumerable<TrajvRegister10.Models.Fine>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = Resources.Resource.FineList;
 }
 
 <link type="text/css" rel="stylesheet" href="@Url.Content("~/wwwroot/css/main.css")" />
-<body>
 
-</body>
 <div class="row">
     <div class="col-md-12">
         <img src="~/pictures/kat.jpg" alt="Header Image" class="img-responsive" style="width: 10%; height: auto;">
@@ -20,13 +18,13 @@
         <div class="col-md-12">
             <form method="get" action="@Url.Action("Index", "Home")">
                 <div class="form-group">
-                    <label for="searchCarNumber">Search by Car Number:</label>
-                    <input type="text" name="searchCarNumber" class="form-control" placeholder="Enter Car Number" value="@Request.QueryString["searchCarNumber"]" />
+                    <label for="searchCarNumber">@Resources.Resource.SearchCarNumber</label>
+                    <input type="text" name="searchCarNumber" class="form-control" placeholder="@Resources.Resource.SearchCarNumber" value="@Request.QueryString["searchCarNumber"]" />
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary">@Resources.Resource.Search</button>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <a href="@Url.Action("ExportToExcel", "Home")" class="btn btn-info" style="margin-top: 5px;">Export to Excel</a>
+                        <a href="@Url.Action("ExportToExcel", "Home")" class="btn btn-info" style="margin-top: 5px;">@Resources.Resource.ExportToExcel</a>
                     </div>
                 </div>
             </form>
@@ -38,7 +36,7 @@
                     <th>@Html.DisplayNameFor(model => model.First().Date)</th>
                     <th>@Html.DisplayNameFor(model => model.First().Velocity)</th>
                     <th>@Html.DisplayNameFor(model => model.First().Sum)</th>
-                    <th>Actions</th> <!-- Добавляем колонку для кнопок -->
+                    <th>@Resources.Resource.Actions</th>
                 </tr>
 
                 @foreach (var item in Model)
@@ -51,11 +49,8 @@
                         <td>@Html.DisplayFor(modelItem => item.Velocity)</td>
                         <td>@Html.DisplayFor(modelItem => item.Sum)</td>
                         <td>
-                            @* Кнопка для редактирования штрафа *@
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-
-                            @* Кнопка для удаления штрафа *@
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this fine?');" })
+                            @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('@Resources.Resource.ConfirmDelete');" })
                         </td>
                     </tr>
                 }

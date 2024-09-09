@@ -13,6 +13,7 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.IO;
 using System.Net.Mail;
+using System.Web;
 
 namespace Penalty.Controllers
 {
@@ -64,6 +65,22 @@ namespace Penalty.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult ChangeLanguage(string lang)
+        {
+            if (!string.IsNullOrEmpty(lang))
+            {
+                // Устанавливаем язык сессии
+                HttpCookie langCookie = new HttpCookie("lang", lang)
+                {
+                    Expires = DateTime.Now.AddYears(1)
+                };
+                Response.Cookies.Add(langCookie);
+            }
+
+            return Redirect(Request.UrlReferrer.ToString()); // Возвращаем пользователя на предыдущую страницу
+        }
+
 
 
 
