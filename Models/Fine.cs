@@ -45,35 +45,5 @@ namespace TrajvRegister10.Models
                 Sum = 400;
             }
         }
-
-        //public void SendMessage()
-        //{
-        //    try
-        //    {
-        //        // Настройки для WebMail
-        //        System.Web.Helpers.WebMail.SmtpServer = "smtp.gmail.com";
-        //        System.Web.Helpers.WebMail.SmtpPort = 587;  // Порт для TLS
-        //        System.Web.Helpers.WebMail.EnableSsl = true;
-        //        System.Web.Helpers.WebMail.UserName = "nepridumalnazvaniepocht@gmail.com";  // Ваш email
-        //        System.Web.Helpers.WebMail.Password = "rnlt mfvn ftjb usxu";  // Пароль приложения
-        //        System.Web.Helpers.WebMail.From = "nepridumalnazvaniepocht@gmail.com";  // Отправитель
-
-        //        // Определение переменных для отправки письма
-        //        string message1 = "Trahv infromatsion " + CarNumber;
-        //        string subject = message1;
-        //        string body = $"Tere {Name}, Auto number: {CarNumber}. Rikute kiirusepiirangut ({Velocity}), nii et te trahv {Sum}€. " +
-        //                      $"Trahvi kuupäev: {Date.Year}.{Date.Month}.{Date.Day}. Maksmiseks on teil 2 kuud.";
-
-        //        // Отправка письма с использованием WebMail
-        //        System.Web.Helpers.WebMail.Send(UserEmail, subject, body);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Обработка ошибок
-        //        Console.WriteLine("Failed to send email. Error: " + ex.Message);
-        //    }
-        //}
-
     }
 }
