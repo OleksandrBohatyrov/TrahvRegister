@@ -177,6 +177,9 @@
   <data name="Home" xml:space="preserve">
     <value>Avaleht</value>
   </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Logi sisse</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>Logi sisse</value>
   </data>
