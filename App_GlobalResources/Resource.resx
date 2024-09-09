@@ -129,8 +129,14 @@
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Are you sure you want to delete this fine?</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create a new account.</value>
   </data>
   <data name="CreateFine" xml:space="preserve">
     <value>Create Fine</value>
@@ -159,6 +165,9 @@
   <data name="EditSuccessMessage" xml:space="preserve">
     <value>Fine was successfully updated.</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="ExportToExcel" xml:space="preserve">
     <value>Export to Excel</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="Fines" xml:space="preserve">
     <value>Find fines</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -189,8 +201,20 @@
   <data name="NoFinesFound" xml:space="preserve">
     <value>No fines found.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="PayFine" xml:space="preserve">
     <value>Pay Fine</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterNew" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -203,6 +227,15 @@
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Amount</value>
+  </data>
+  <data name="TitleLogin" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="TitleRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="UseLocalAccount" xml:space="preserve">
+    <value>Use a local account to log in.</value>
   </data>
   <data name="UserEmail" xml:space="preserve">
     <value>User Email</value>
