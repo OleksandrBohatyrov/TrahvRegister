@@ -34,7 +34,6 @@ namespace Penalty.Controllers
 
             var payPalService = new PayPalService();
 
-            // Генерация ссылки для успешной оплаты с передачей id
             var returnUrl = Url.Action("PaymentSuccess", "Home", new { id = fine.Id }, Request.Url.Scheme);
             var cancelUrl = Url.Action("PaymentCancel", "Home", new { id = fine.Id }, Request.Url.Scheme);
 
@@ -44,13 +43,11 @@ namespace Penalty.Controllers
             return Redirect(approvalUrl);
         }
 
-
-        // Метод, обрабатывающий успешную оплату
         public ActionResult PaymentSuccess(int? id)
         {
             if (id == null)
             {
-                // Логирование или обработка ошибки, если параметр отсутствует
+                
                 Console.WriteLine("ID штрафа не был передан.");
                 return RedirectToAction("Index");
             }
@@ -70,7 +67,7 @@ namespace Penalty.Controllers
         {
             if (!string.IsNullOrEmpty(lang))
             {
-                // Устанавливаем язык сессии
+         
                 HttpCookie langCookie = new HttpCookie("lang", lang)
                 {
                     Expires = DateTime.Now.AddYears(1)
@@ -78,7 +75,7 @@ namespace Penalty.Controllers
                 Response.Cookies.Add(langCookie);
             }
 
-            return Redirect(Request.UrlReferrer.ToString()); // Возвращаем пользователя на предыдущую страницу
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 
@@ -134,29 +131,29 @@ namespace Penalty.Controllers
                     }
                 }
 
-                // Автоподбор ширины колонок
+           
                 worksheet.Cells.AutoFitColumns();
 
-                // Генерация файла Excel
+             
                 var stream = new MemoryStream(package.GetAsByteArray());
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Fines.xlsx");
             }
         }
             public ActionResult PaymentCancel()
         {
-            // Перенаправление на список штрафов при отмене платежа
+         
             return RedirectToAction("Index");
         }
 
-        // Метод, обрабатывающий отмену платежа
+    
         public ActionResult PaymentCancel(int id)
         {
-            // Логика обработки отмены платежа
+      
             ViewBag.Message = "Оплата была отменена.";
             return RedirectToAction("Fines");
         }
 
-        // Отображение всех штрафов (например, для админа)
+     
         [Authorize(Roles = "Admin")]
         public ActionResult Index(string searchCarNumber = null)
         {
@@ -170,7 +167,6 @@ namespace Penalty.Controllers
             return View(penalties.ToList());
         }
 
-        // Отображение штрафов для текущего пользователя
         [Authorize]
         public ActionResult Fines(string searchCarNumber = null)
         {
@@ -226,25 +222,25 @@ namespace Penalty.Controllers
             try
             {
                 WebMail.SmtpServer = "smtp.gmail.com";
-                WebMail.SmtpPort = 587; // Порт для TLS
+                WebMail.SmtpPort = 587; 
                 WebMail.EnableSsl = true;
-                WebMail.UserName = "pinkod2222@gmail.com";  // Ваш email
-                WebMail.Password = "mxnz nsgd kdia ijcp";      // Пароль приложения
-                WebMail.From = "pinkod2222@gmail.com";      // Отправитель
+                WebMail.UserName = "pinkod2222@gmail.com";  
+                WebMail.Password = "mxnz nsgd kdia ijcp";     
+                WebMail.From = "pinkod2222@gmail.com";    
 
-                // Отправляем email
+       
                 WebMail.Send(toEmail, subject, body);
 
                 Console.WriteLine("Письмо успешно отправлено!");
             }
             catch (SmtpException smtpEx)
             {
-                // SMTP ошибки
+         
                 Console.WriteLine($"Ошибка SMTP: {smtpEx.Message}");
             }
             catch (Exception ex)
             {
-                // Любые другие ошибки
+           
                 Console.WriteLine($"Ошибка при отправке письма: {ex.Message}");
             }
         }
@@ -252,7 +248,7 @@ namespace Penalty.Controllers
 
 
 
-        // Метод для редактирования штрафа (Admin)
+   
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int id)
@@ -283,7 +279,7 @@ namespace Penalty.Controllers
         }
 
 
-        // Метод для удаления штрафа (Admin)
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Delete(int id)
@@ -307,7 +303,7 @@ namespace Penalty.Controllers
             return RedirectToAction("Index");
         }
 
-        // Отправка письма пользователю с информацией о штрафе
+ 
        
     }
 }

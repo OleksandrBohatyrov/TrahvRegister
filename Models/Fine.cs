@@ -22,7 +22,7 @@ namespace TrajvRegister10.Models
 
 
         [Required]
-        public string UserEmail { get; set; }  // Email пользователя
+        public string UserEmail { get; set; }  
 
         public int Velocity { get; set; }
 
