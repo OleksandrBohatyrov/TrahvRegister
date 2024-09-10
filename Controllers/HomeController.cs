@@ -207,7 +207,7 @@ namespace Penalty.Controllers
                 if (user != null)
                 {
                     // Отправляем email прямо из контроллера
-                    SendEmail(penalty.UserEmail, "Ваш штраф",
+                    SendEmail(penalty.UserEmail, "Teie trahv",
                               $"Tere, kell {penalty.Date} rikute kiirusepiirangut ({penalty.Velocity}), nii et te trahv {penalty.Sum}. Maksmiseks on teil 2 kuud");
                 }
 

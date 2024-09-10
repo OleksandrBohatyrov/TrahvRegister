@@ -6,6 +6,12 @@
 
 <link type="text/css" rel="stylesheet" href="@Url.Content("~/wwwroot/css/main.css")" />
 
+<div class="row">
+    <div class="col-md-12">
+        <img src="~/pictures/kat.jpg" alt="Header Image" class="img-responsive" style="width: 10%; height: auto;">
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -26,7 +32,7 @@
         }
     </div>
 
-    <!-- Fines Table -->
+    <!-- Таблица штрафов -->
     <div class="row">
         <div class="col-md-12">
             @if (Model.Any())
@@ -34,13 +40,13 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.First().UserEmail)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().CarNumber)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().Date)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().Velocity)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().Sum)</th>
-                            <th>@Resources.Resource.Actions</th>
+                            <th>@Resources.Resource.UserEmail</th> <!-- Перевод: "Email пользователя" -->
+                            <th>@Resources.Resource.CarNumber</th> <!-- Перевод: "Номер автомобиля" -->
+                            <th>@Resources.Resource.Name</th> <!-- Перевод: "Имя" -->
+                            <th>@Resources.Resource.Date</th> <!-- Перевод: "Дата" -->
+                            <th>@Resources.Resource.Velocity</th> <!-- Перевод: "Скорость" -->
+                            <th>@Resources.Resource.Sum</th> <!-- Перевод: "Сумма" -->
+                            <th>@Resources.Resource.Actions</th> <!-- Перевод: "Действия" -->
                         </tr>
                     </thead>
                     <tbody>
@@ -63,13 +69,13 @@
                                     {
                                         <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                             <input type="hidden" name="cmd" value="_xclick">
-                                            <input type="hidden" name="business" value="your-paypal-business@example.com">
+                                            <input type="hidden" name="business" value="oleksandr.bohatyrov@gmail.com">
                                             <input type="hidden" name="item_name" value="Fine Payment - @item.CarNumber">
                                             <input type="hidden" name="amount" value="@item.Sum.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)">
                                             <input type="hidden" name="currency_code" value="EUR">
                                             <input type="hidden" name="return" value="@Url.Action("PaymentSuccess", "Home", new { id = item.Id }, Request.Url.Scheme)">
                                             <input type="hidden" name="cancel_return" value="@Url.Action("PaymentCancel", "Home", new { id = item.Id }, Request.Url.Scheme)">
-                                            <button type="submit" class="btn btn-primary btn-sm">@Resources.Resource.PayFine</button>
+                                            <button type="submit" class="btn btn-primary btn-sm">@Resources.Resource.PayFine</button> <!-- Перевод: "Оплатить штраф" -->
                                         </form>
                                     }
                                 </td>
@@ -80,7 +86,7 @@
             }
             else
             {
-                <p>@Resources.Resource.NoFinesFound</p>
+                <p>@Resources.Resource.NoFinesFound</p> <!-- Перевод: "Штрафы не найдены" -->
             }
         </div>
     </div>
